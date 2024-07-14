@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Products</title>
+</head>
+<body>
+    <h1>Product Management</h1>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/products/add">Add Product</a> |
+        <a href="/products/view">Products List</a> |
+        <a href="/products/remove">Remove Product</a> |
+        <a href="/products/stats">Product Stats</a> |
+        <a href="/about">About</a>
+    </nav>
+    <div>
+        <h1>Remove Product</h1>
+        <form id="remove-product-form">
+            <label for="product-id">Product ID:</label><br>
+            <input type="text" id="product-id" name="product-id"><br>
+            <input type="submit" value="Remove Product">
+        </form>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // Handle the form submission
+        document.querySelector('#remove-product-form').addEventListener('submit', function(event) {
+            // Prevent the form from being submitted normally
+            event.preventDefault();
+
+            // Get the product ID from the form
+            const productId = document.querySelector('#product-id').value;
+
+            // Send a DELETE request to the API
+            axios.delete('/products/remove/' + productId)
+                .then(response => {
+                    alert('Product removed successfully!');
+                })
+                .catch(error => {
+                    console.error('Error removing the product:', error);
+                    alert('Failed to remove product. Please try again later.');
+                });
+        });
+    </script>
+</body>
+</html>

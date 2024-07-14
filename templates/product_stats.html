@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Stats</title>
+</head>
+<body>
+    <h1>Product Management</h1>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/products/add">Add Product</a> |
+        <a href="/products/view">Products List</a> |
+        <a href="/products/remove">Remove Product</a> |
+        <a href="/products/stats">Product Stats</a> |
+        <a href="/about">About</a>
+    </nav>
+    <div>
+        <h1>Product Stats</h1>
+        <div id="product-stats">
+            <!-- Product stats will be inserted here -->
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // Fetch the product stats from the API using Axios
+        axios.get('/products/stats')
+            .then(response => {
+                // Display the product stats
+                const statsDiv = document.querySelector('#product-stats');
+                statsDiv.innerHTML = `
+                    <p>Total Products: ${response.data.totalProducts}</p>
+                    <p>Average Price: ${response.data.averagePrice}</p>
+                    <p>Most Popular Brand: ${response.data.mostPopularBrand}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching the product stats:', error);
+                const statsDiv = document.querySelector('#product-stats');
+                statsDiv.innerHTML = '<p>Failed to load product stats. Please try again later.</p>';
+            });
+    </script>
+</body>
+</html>

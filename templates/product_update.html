@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+</head>
+<body>
+    <h1>Product Management</h1>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/products/add">Add Product</a> |
+        <a href="/products/view">Products List</a> |
+        <a href="/products/remove">Remove Product</a> |
+        <a href="/products/stats">Product Stats</a> |
+        <a href="/about">About</a>
+    </nav>
+    <div>
+        <h1>Update Product</h1>
+        <form id="update-product-form">
+            <label for="product-id">Product ID:</label><br>
+            <input type="text" id="product-id" name="product-id"><br>
+            <label for="product-name">Product Name:</label><br>
+            <input type="text" id="product-name" name="product-name"><br>
+            <label for="product-price">Product Price:</label><br>
+            <input type="text" id="product-price" name="product-price"><br>
+            <input type="submit" value="Update Product">
+        </form>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script

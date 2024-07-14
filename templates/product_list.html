@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Products</title>
+</head>
+<body>
+    <h1>Product Management</h1>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/products/add">Add Product</a> |
+        <a href="/products/view">Products List</a> |
+        <a href="/products/remove">Remove Product</a> |
+        <a href="/products/stats">Product Stats</a> |
+        <a href="/about">About</a>
+    </nav>
+    <div>
+        <h1>Products List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Model</th>
+                    <th>Brand</th>
+                    <th>Rating</th>
+                    <th>Spec - name</th>
+
+                </tr>
+            </thead>
+            <tbody id="products-table">
+            </tbody>
+        </table>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // Fetch the products from the API using Axios
+        axios.get('/products/list')
+            .then(response => {
+                // Display the products in the table
+                const tableBody = document.querySelector('#products-table');
+                response.data.forEach(product => {
+                    const row = document.createElement('tr')
+                    const specsName = product.specs && product.specs.name ? product.specs.name : 'N/A';
+                    row.innerHTML = `
+                        <td>${product.name}</td>
+                        <td>${product.price}</td>
+                        <td>${product.model}</td>
+                        <td>${product.brand}</td>
+                        <td>${product.rating}</td>
+                        <td>${product.specsName}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching the products:', error);
+                const tableBody = document.querySelector('#products-table');
+                const errorRow = document.createElement('tr');
+                errorRow.innerHTML = '<td colspan="5">Failed to load products. Please try again later.</td>';
+                tableBody.appendChild(errorRow);
+            });
+    </script>
+</body>
+</html>
